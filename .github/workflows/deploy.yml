@@ -2,7 +2,7 @@ name: Deploy Vite Site to Pages
 
 on:
   push:
-    branches: ["main"] # Ensure this matches your primary branch name
+    branches: ["master"] # Ensure this matches your primary branch name
   workflow_dispatch:
 
 permissions:
