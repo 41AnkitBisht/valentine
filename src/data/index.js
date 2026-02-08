@@ -1,14 +1,21 @@
 import FlamesInMyViens from "../assets/image/Flames_in_my_Veins_Spray.webp";
 import Raze_Here_Spray from "../assets/image/Raze_Here_Spray.webp";
-import RazeConvo from "../assets/audio/razeconvo.mp3";
-import Dont from "../assets/audio/dont.mp3";
-import Phoneix from "../assets/image/Phoenix.webp";
 import Did_You_Drop_This_Spray from "../assets/image/Did_You_Drop_This_Spray.webp";
+import RazeConvo from "../assets/audio/razeconvo.mp3";
 import Heaven_or_Hell_Spray from "../assets/image/Heaven_or_Hell_Spray.webp";
+import Phoneix from "../assets/image/Phoenix.webp";
+import My_Eyes_Spray from "../assets/image/My_Eyes_Spray.webp";
+import Pretty_Pretty_Please_Spray from "../assets/image/Pretty_Pretty_Please_Spray.webp";
+import Phoenix_Rise_Spray from "../assets/image/Phoenix_Rise_Spray.webp";
+
+import Dont from "../assets/audio/dont.mp3";
 import Whtudoing from "../assets/audio/whtudoing.mp3";
 import Phoneix_im_sorry from "../assets/audio/raze/phoneix_im_sorry.mp3";
 import Yes_im_pumped from "../assets/audio/raze/yes_im_pumped.mp3";
 import Thathowitgetdone from "../assets/audio/thathowitgetdone.mp3";
+import Just_wamed_up from "../assets/audio/just_wamed_up.mp3";
+import You_know_vibe from "../assets/audio/raze/you_know_vibe.mp3";
+import You_tried from "../assets/audio/you_tried.mp3";
 
 export const story = {
   start: {
@@ -49,10 +56,32 @@ export const story = {
     isFinalQuestion: true,
   },
   p_rejected: {
-    text: "Ouch... cold as ice. But you know I don't give up. Let's try that again!",
+    text: "You tried! I stopped that. But you know I don't give up.",
     speaker: "Phoenix",
-    bg: Did_You_Drop_This_Spray,
-    audio: Whtudoing,
+    bg: My_Eyes_Spray,
+    audio: You_tried,
+    choices: [
+      { label: "Fine, show me what you got.", next: "start" },
+      {
+        label:
+          "I shouldn't have to say this because, you know, my vibe, but, stay clear of my explosions, okay?",
+        next: "r_rejected1",
+      },
+    ],
+    // choices: [{ label: "Fine, show me what you got.", next: "start" }],
+  },
+  r_rejected1: {
+    text: "I shouldn't have to say this because, you know, my vibe, but, stay clear of my explosions, okay?",
+    speaker: "Raze",
+    bg: Pretty_Pretty_Please_Spray,
+    audio: You_know_vibe,
+    choices: [{ label: "Continue", next: "p_rejected1" }],
+  },
+  p_rejected1: {
+    text: "Just warmed up! You know how I get done! So, what do you say? Will you be my Valentine?",
+    speaker: "Phoenix",
+    bg: Phoenix_Rise_Spray,
+    audio: Just_wamed_up,
     choices: [{ label: "Fine, show me what you got.", next: "start" }],
   },
 };
