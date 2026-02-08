@@ -2,170 +2,44 @@
 // import { motion } from "framer-motion";
 import Phoneix from "../assets/image/Phoenix.webp";
 import Raze from "../assets/image/Raze.webp";
-import FlamesInMyViens from "../assets/image/Flames_in_my_Veins_Spray.webp";
+import Radiant from "../assets/image/radiant.png";
 
 import Boomtastic_Spray from "../assets/gif/Boomtastic_Spray.gif";
-import Raze_has_Range_Spray from "../assets/gif/Raze_has_Range_Spray.gif";
 
-import Whtudoing from "../assets/audio/whtudoing.mp3";
-import Dont from "../assets/audio/dont.mp3";
-import Thathowitgetdone from "../assets/audio/thathowitgetdone.mp3";
-import RazeConvo from "../assets/audio/razeconvo.mp3";
-import TypingSound from "../assets/audio/typing_sound.mp3";
+import Lets_start_party from "../assets/audio/raze/lets_start_party.mp3";
+import Arcade_melody from "../assets/audio/arcade-melody.mp3";
 
 import { story } from "../data";
+import confetti from "canvas-confetti";
 
-// const ValentinePage = () => {
-//   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
-//   const [yesScale, setYesScale] = useState(1);
-//   const [dialogue, setDialogue] = useState(
-//     "Yo, Raze! Think you can keep up with me?",
-//   );
-//   const [isAccepted, setIsAccepted] = useState(false);
-
-//   const handleNoHover = () => {
-//     // Calculate a random position within a 300px range
-//     const newX = Math.random() * 400 - 200;
-//     const newY = Math.random() * 400 - 200;
-
-//     setNoButtonPos({ x: newX, y: newY });
-//     setYesScale((prev) => prev + 0.15); // Grow the Yes button
-//     setDialogue("Whoa! Too slow, gotta be faster than that!");
-//   };
-
-//   const handleYesClick = () => {
-//     setIsAccepted(true);
-//     setDialogue("BOOM! I knew you couldn't resist the fire!");
-//   };
-
-//   return (
-//     <div style={styles.container}>
-//       <div style={styles.card}>
-//         <h2 style={styles.dialogueBox}>"{dialogue}"</h2>
-//         <div style={styles.characterContainer}>
-//           {/* Phoenix Side */}
-//           <div style={styles.agentBox}>
-//             <img src={Phoneix} alt="Phoenix" style={styles.agentImg} />
-//             <p style={styles.tagline}>PHOENIX</p>
-//           </div>
-
-//           <div style={styles.vs}>VS</div>
-
-//           {/* Raze Side */}
-//           <div style={styles.agentBox}>
-//             <img src={Raze} alt="Raze" style={styles.agentImg} />
-//             <p style={styles.tagline}>RAZE</p>
-//           </div>
-//         </div>
-
-//         {!isAccepted ? (
-//           <div style={styles.buttonGroup}>
-//             <motion.button
-//               style={{ ...styles.button, ...styles.yesBtn }}
-//               animate={{ scale: yesScale }}
-//               onClick={handleYesClick}
-//             >
-//               YES
-//             </motion.button>
-
-//             <motion.button
-//               style={{ ...styles.button, ...styles.noBtn }}
-//               animate={{ x: noButtonPos.x, y: noButtonPos.y }}
-//               onMouseEnter={handleNoHover}
-//             >
-//               NO
-//             </motion.button>
-//           </div>
-//         ) : (
-//           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-//             <h1 style={styles.successText}>IT'S A DATE! 🧨🔥</h1>
-//           </motion.div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// // Quick Valorant-themed styles
-// const styles = {
-//   container: {
-//     background: "#0f1923", // Valorant Dark Blue
-//     display: "flex",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     fontFamily: '"Oswald", sans-serif',
-//     color: "#ece8e1",
-//     // overflow: "hidden",
-//   },
-//   card: {
-//     textAlign: "center",
-//     padding: "40px",
-//     border: "2px solid #ff4655",
-//   },
-//   characterContainer: {
-//     display: "flex",
-//     alignItems: "center",
-//     gap: "20px",
-//     marginBottom: "30px",
-//   },
-//   agentImg: { width: "550px", height: "auto" },
-//   vs: { fontSize: "2rem", color: "#ff4655", fontWeight: "bold" },
-//   dialogueBox: { height: "60px", fontStyle: "italic", margin: "20px 0" },
-//   buttonGroup: {
-//     display: "flex",
-//     justifyContent: "center",
-//     gap: "50px",
-//     alignItems: "center",
-//   },
-//   button: {
-//     padding: "15px 40px",
-//     fontSize: "1.5rem",
-//     border: "none",
-//     cursor: "pointer",
-//     fontWeight: "bold",
-//   },
-//   yesBtn: {
-//     background: "#ff4655", // The iconic Valorant Red
-//     color: "white",
-//     border: "1px solid rgba(255, 70, 85, 0.5)",
-//     boxShadow: "0px 0px 20px rgba(255, 70, 85, 0.6)", // The Red Glow
-//     transition: "all 0.2s ease",
-//     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)",
-//   },
-//   noBtn: {
-//     background: "transparent",
-//     color: "#ece8e1",
-//     border: "2px solid #ece8e1",
-//     boxShadow: "0px 0px 10px rgba(236, 232, 225, 0.2)",
-//   },
-//   successText: { color: "#ff4655", fontSize: "3rem" },
-// };
-
-// export default ValentinePage;
-
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, color } from "framer-motion";
 
 const ValentinePage = () => {
   // --- STORY DATA ---
 
   // --- STATE ---
-  const [gameState, setGameState] = useState("loading"); // 'loading', 'vn', 'success'
+  const [gameState, setGameState] = useState("sound-check"); // 'loading', 'vn', 'success'
   const [currentScene, setCurrentScene] = useState("start");
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [showChoices, setShowChoices] = useState(false);
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
   const [yesScale, setYesScale] = useState(1);
+  const arcadeRef = useRef(null);
 
   // --- TYPEWRITER LOGIC ---
   useEffect(() => {
+    if (arcadeRef.current && arcadeRef.current.volume !== undefined) {
+      arcadeRef.current.volume = 0.05;
+    }
     if (gameState !== "vn") return;
     // if(gameState === "loading") {
     //   const timer = setTimeout(() => setGameState("vn"), 2000);
     //   return () => clearTimeout(timer);
     // }
 
+    console.log("Arcade melody volume set to 0.3", arcadeRef.current);
     let i = 0;
     const fullText = story[currentScene].text;
     setDisplayedText("");
@@ -198,12 +72,92 @@ const ValentinePage = () => {
     setYesScale((prev) => prev + 0.1);
   };
 
+  const handleFinalYes = () => {
+    setGameState("success");
+    arcadeRef.current.pause();
+
+    const end = Date.now() + 15 * 1000; // 5 seconds duration
+    const razeColors = ["#ff4655", "#ffb300", "#00ad8e", "#fe019a", "#ece8e1"];
+
+    (function frame() {
+      confetti({
+        particleCount: 3,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.6 },
+        colors: razeColors,
+        scalar: 1.2,
+        drift: 0.5,
+        ticks: 200,
+      });
+
+      // Right side cannon
+      confetti({
+        particleCount: 3,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.6 },
+        colors: razeColors,
+      });
+
+      // Keep the animation going until time is up
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    })();
+  };
+
   return (
     <div
       style={{ ...styles.container, backgroundImage: story[currentScene].bg }}
     >
+      <audio
+        src={Arcade_melody}
+        controls
+        loop
+        className="arcade-melody"
+        ref={arcadeRef}
+        style={{ display: "none" }}
+      ></audio>
       <AnimatePresence mode="wait">
-        // Add a background image to the loading screen for extra flair
+        {gameState === "sound-check" && (
+          <motion.div
+            key="boot"
+            exit={{ opacity: 0, y: -20 }}
+            style={styles.bootScreen}
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0.5, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+              style={styles.systemText}
+            >
+              {">"} SYSTEM: INITIALIZING AGENT_COMM_LINK...
+              <br />
+              {">"} STATUS: AUDIO_DRIVERS_PENDING...
+            </motion.div>
+
+            <motion.button
+              whileHover={{ backgroundColor: "#00ad8e", color: "#0f1923" }}
+              onClick={() => {
+                // Trigger a tiny silent sound to "unlock" audio
+                const context = new (
+                  window.AudioContext || window.webkitAudioContext
+                )();
+                context.resume();
+                arcadeRef.current.play();
+                setGameState("loading");
+              }}
+              style={styles.powerBtn}
+            >
+              ENABLE TRANSMISSION
+            </motion.button>
+
+            <p style={{ marginTop: "20px", color: "#444", fontSize: "0.8rem" }}>
+              (Turn on sound for the full experience)
+            </p>
+          </motion.div>
+        )}
         {gameState === "loading" && (
           <motion.div
             key="loader"
@@ -308,7 +262,7 @@ const ValentinePage = () => {
                     <motion.button
                       animate={{ scale: yesScale }}
                       style={styles.yesBtn}
-                      onClick={() => setGameState("success")}
+                      onClick={handleFinalYes}
                     >
                       YES
                     </motion.button>
@@ -333,6 +287,17 @@ const ValentinePage = () => {
             animate={{ scale: 1, opacity: 1 }}
             style={styles.successScreen}
           >
+            <img
+              src={Radiant}
+              style={{
+                width: "300px",
+                height: "300px",
+                marginBottom: "20px",
+                borderRadius: "10%",
+                aspectRatio: "1 / 1",
+              }}
+            />
+            <audio src={Lets_start_party} autoPlay></audio>
             <h1 style={styles.successTitle}>MISSION ACCOMPLISHED</h1>
             <p style={styles.successSub}>
               See you on the site, Valentine! 🧨🔥
@@ -390,7 +355,7 @@ const styles = {
   },
   agentImg: {
     height: "100%",
-    maxWidth: "45%",
+    maxWidth: "55%",
     objectFit: "contain",
     filter: "drop-shadow(0 0 15px rgba(255, 70, 85, 0.4))",
   },
@@ -604,8 +569,8 @@ const styles = {
     alignItems: "center",
     background: "#ff4655",
   },
-  successTitle: { fontSize: "4rem", margin: 0 },
-  successSub: { fontSize: "1.5rem" },
+  successTitle: { fontSize: "4rem", margin: 0, color: "white" },
+  successSub: { fontSize: "1.5rem", color: "rgba(255, 255, 255, 0.8)" },
   // scanlines: {
   //   position: "absolute",
   //   width: "100%",
@@ -615,6 +580,35 @@ const styles = {
   //   backgroundSize: "100% 4px",
   //   pointerEvents: "none",
   // },
+  bootScreen: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#0f1923",
+    color: "#00ad8e", // Valorant Teal
+    fontFamily: "'Courier New', monospace",
+    textAlign: "center",
+    padding: "20px",
+  },
+  systemText: {
+    fontSize: "0.9rem",
+    marginBottom: "30px",
+    letterSpacing: "2px",
+    textTransform: "uppercase",
+  },
+  powerBtn: {
+    background: "transparent",
+    color: "#00ad8e",
+    border: "2px solid #00ad8e",
+    padding: "15px 40px",
+    fontSize: "1.2rem",
+    fontWeight: "bold",
+    cursor: "pointer",
+    boxShadow: "0 0 15px rgba(0, 173, 142, 0.2)",
+    transition: "0.3s all",
+  },
 };
 
 export default ValentinePage;
